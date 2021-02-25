@@ -5,7 +5,7 @@
     /// Da in einem Spiel mehrere unterschiedliche Karten existieren,
     /// kann diese Klasse nicht statisch sein.
     /// </summary>
-    class Karte
+    public class Karte
     {
         public int Augenzahl { get; private set; }
         public string Name { get; private set; }

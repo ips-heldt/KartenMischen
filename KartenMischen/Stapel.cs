@@ -18,11 +18,11 @@ namespace KartenMischen
     /// eines klassischen Kartenstapels. Er hat mehrere einzelen Karten
     /// und kann gemischt werden
     /// </summary>
-    class Stapel
+    public class Stapel
     {
         static Random rand;
         public int Kartenzahl = 0;
-        public Karte[] Karten = null;
+        public Karte[] Karten { get; private set; } = null;
 
         /// <summary>
         /// Konstruktor, der einen leeren Kartenstapel mit x Elementen instanziiert.
@@ -33,7 +33,7 @@ namespace KartenMischen
         {
             Karten = new Karte[AnzahlKarten];
             Anlegen();
-            Mischen();
+            Karten = Mischen(Karten);
         }
 
         /// <summary>
@@ -87,22 +87,22 @@ namespace KartenMischen
         /// <summary>
         /// Diese Methode mischt den vorhandenen Stapel, zufällig neu
         /// </summary>
-        private void Mischen()
+        private static Karte[] Mischen(Karte[] Karten)
         {
             rand = new Random(0);
-            Karte[] Gemischt = new Karte[this.Karten.GetLength(0)];
+            Karte[] Gemischt = new Karte[Karten.GetLength(0)];
 
-            for(int i = 0; i < this.Karten.GetLength(0); i++)
+            for(int i = 0; i < Karten.GetLength(0); i++)
             {
                 int pos;
 
                 do
                 {
-                    pos = rand.Next(this.Karten.GetLength(0));
+                    pos = rand.Next(Karten.GetLength(0));
                 } while (Gemischt.GetValue(pos) != null);
-                Gemischt[pos] = this.Karten[i];
+                Gemischt[pos] = Karten[i];
             }
-            this.Karten = Gemischt;
+            return Gemischt;
         }
 
         /// <summary>
